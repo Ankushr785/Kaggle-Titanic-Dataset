@@ -13,10 +13,10 @@ titanic = titanic.drop(labels=['PassengerId', 'Cabin', 'Ticket', 'Embarked'], ax
 titanic = titanic.drop(labels=['Name'], axis=1)
 
 #coefficient prediction in R
-#titanic_null = titanic[pd.isnull(titanic.Age) == True]
-#titanic_not_null = titanic[pd.isnull(titanic.Age) == False]
-#titanic_null.to_csv('titanic_null.csv')
-#titanic_not_null.to_csv('titanic_not_null.csv')
+titanic_null = titanic[pd.isnull(titanic.Age) == True]
+titanic_not_null = titanic[pd.isnull(titanic.Age) == False]
+titanic_null.to_csv('titanic_null.csv')
+titanic_not_null.to_csv('titanic_not_null.csv')
 
 
 
@@ -61,9 +61,8 @@ test = test.drop(labels=['Name'], axis=1)
 
 #predict values in R
 
-#test_not_null = test[(pd.isnull(test.Age) == False) & (pd.isnull(test.Fare) == False)]
-
-#test_not_null.to_csv('test_not_null.csv')
+test_not_null = test[(pd.isnull(test.Age) == False) & (pd.isnull(test.Fare) == False)]
+test_not_null.to_csv('test_not_null.csv')
 
 #fill null values
 test['Fare'] = test['Fare'].fillna(value = 131.757 - (42.379*test.Pclass))
