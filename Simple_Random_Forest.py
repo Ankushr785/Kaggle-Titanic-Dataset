@@ -1,8 +1,8 @@
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-#import decision tree classifier from sklearn
+#import random forest classifier from sklearn
 from sklearn.ensemble import RandomForestClassifier
+
 #download the titanic dataset here (https://www.kaggle.com/c/titanic/data)
 titanic = pd.read_csv("C:\\Users\\Ankush Raut\\Downloads\\Titanic data\\train.csv")
 
@@ -28,12 +28,12 @@ titanic.drop(labels=['Survived'], inplace=True, axis=1)
 
 #create the model
 clf = RandomForestClassifier(n_estimators = 100, min_samples_split = 50)
-model2 = clf.fit(titanic, y)
+model1 = clf.fit(titanic, y)
 
 #check the cross validation score
 from sklearn.cross_validation import cross_val_score
 
-score = cross_val_score(model2, titanic, y, cv = 10)
+score = cross_val_score(model1, titanic, y, cv = 10)
 from scipy.stats import sem
 def mean_scores(scores):
     return("Mean score: {0:.3f}(+/-{1:.3f})").format(np.mean(scores), sem(scores))
