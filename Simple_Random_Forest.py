@@ -63,7 +63,7 @@ ordered_sex = ['male', 'female']
 test.Sex = test.Sex.astype("category", ordered=True, categories=ordered_sex).cat.codes
 
 #predict
-y_pred = model2.predict(test)
+y_pred = model1.predict(test)
 
 #store in a dataframe
 ID = pd.Series(range(892, 1310))
