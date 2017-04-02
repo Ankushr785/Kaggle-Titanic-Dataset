@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-#import decision tree classifier from sklearn
+
+#import random forest classifier from sklearn
 from sklearn.ensemble import RandomForestClassifier
 #download the titanic dataset here (https://www.kaggle.com/c/titanic/data)
 titanic = pd.read_csv("C:\\Users\\Ankush Raut\\Downloads\\Titanic data\\train.csv")
@@ -11,14 +11,14 @@ titanic = titanic.drop(labels=['PassengerId', 'Cabin', 'Ticket', 'Embarked'], ax
 titanic = titanic.drop(labels=['Name'], axis=1)
 
 #coefficient prediction in R
-#titanic_null = titanic[pd.isnull(titanic.Age) == True]
-#titanic_not_null = titanic[pd.isnull(titanic.Age) == False]
-#titanic_null.to_csv('titanic_null.csv')
-#titanic_not_null.to_csv('titanic_not_null.csv')
+
+titanic_not_null = titanic[pd.isnull(titanic.Age) == False]
+
+titanic_not_null.to_csv('titanic_not_null.csv')
 
 
 
-#fill null values
+#fill null values using coefficients obtained from linear regression in R
 titanic['Age'] = titanic['Age'].fillna(value = (-titanic.Fare*0.04301) + (-titanic.Pclass*7.90311) + 48)
 
 #feature scaling
@@ -56,13 +56,13 @@ test = pd.read_csv("C:\\Users\\Ankush Raut\\Downloads\\Titanic data\\test.csv")
 test = test.drop(labels=['PassengerId', 'Cabin', 'Ticket', 'Embarked'], axis=1)
 test = test.drop(labels=['Name'], axis=1)
 
-#predict values in R
+#predict null values in R
 
-#test_not_null = test[(pd.isnull(test.Age) == False) & (pd.isnull(test.Fare) == False)]
+test_not_null = test[(pd.isnull(test.Age) == False) & (pd.isnull(test.Fare) == False)]
 
-#test_not_null.to_csv('test_not_null.csv')
+test_not_null.to_csv('test_not_null.csv')
 
-#fill null values
+#fill null values using coefficients obtained from linear regression in R
 test['Fare'] = test['Fare'].fillna(value = 131.757 - (42.379*test.Pclass))
 test['Age'] = test['Age'].fillna(value = (test.Fare*0.0152) + (-test.Pclass*7.73788) + 46.13266)
 
@@ -86,6 +86,6 @@ ID = pd.Series(range(892, 1310))
 y1 = np.array(y_pred)
 
 sol = pd.DataFrame({'PassengerId':ID, 'Survived':y1})
-sol.to_csv('Solution1.csv')
+sol.to_csv('Solution2.csv')
 
 #the accuracy is found to be 0.77512
